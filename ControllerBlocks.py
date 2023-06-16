@@ -4,6 +4,12 @@ import numpy as np
 def tanh(a):
     return (np.exp(2 * a) - 1) / (np.exp(2 * a) + 1)
 
+def Relu(input):
+  if input > 0:
+    return input
+  else:
+    return 0
+
 class CPG:
     def __init__(self):
         self.outputH1 = 0.001
