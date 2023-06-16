@@ -3,7 +3,7 @@
 import rospy
 from std_msgs.msg import String, Float32MultiArray,Int32MultiArray
 from sensor_msgs.msg import Joy
-from ControllerBlocks import CPG,Delay
+from ControllerBlocks import CPG
 from MORFcontrollers import Motormapping_angle
 import sys
 import getch
