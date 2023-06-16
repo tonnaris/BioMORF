@@ -51,7 +51,7 @@ def main():
 
     max_alpha = 0.1
 
-    rate_alpha = 0.000002
+    rate_alpha = 0.000006
 
     # set_shif_cpg_breathe and max_shif_cpg_breathe must set between [0,0.3]
     # the deuration will start from set_shif_cpg_breathe to max_shif_cpg_breathe with change speed of rate_cpg_breathe
