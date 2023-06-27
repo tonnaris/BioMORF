@@ -8,8 +8,7 @@ import getch
 import time
 import signal
 import numpy as np
-def main():
-    global motion,speed,pub,count_motion,set_sequence,pump
+def __init__():
     cpg_walk = CPG()
     cpg_walk.set_frequency()
     cpg_breathe = CPG()
@@ -60,130 +59,130 @@ def main():
     #----------------------------------------------------------------------------
 
 
-    while True:
+while True:
 
-        if motion != "set":
-            if motion != "stop" and count_change < 1:
-                signal_leg[0] *= count_change
-                signal_leg[1] *= count_change
-                signal_leg[2] *= count_change
-                count_change += 0.005
-            dynamixel_positon = mapping.map([signal_leg[0],signal_leg[1],signal_leg[2],signal_leg[3],signal_leg[4]])
-            cpg_walk_data = np.array(cpg_walk.update())
+    if motion != "set":
+        if motion != "stop" and count_change < 1:
+            signal_leg[0] *= count_change
+            signal_leg[1] *= count_change
+            signal_leg[2] *= count_change
+            count_change += 0.005
+        dynamixel_positon = mapping.map([signal_leg[0],signal_leg[1],signal_leg[2],signal_leg[3],signal_leg[4]])
+        cpg_walk_data = np.array(cpg_walk.update())
 
-        if motion == "set":
-            count_change = 0
-            sigma = 0.03
-            dynamixel_positon = mapping.map([0,0,0,1,1]) 
-            cpg_walk = CPG()
-            cpg_walk.set_frequency(sigma * np.pi)
-        elif motion == "forward":
-            signal_leg[0] = cpg_walk_data[0]
-            signal_leg[1] = cpg_walk_data[1] 
-            signal_leg[2] = -cpg_walk_data[1]
-            signal_leg[3] = 1
-            signal_leg[4] = 1
-        elif motion == "backward":
-            signal_leg[0] = -cpg_walk_data[0]
-            signal_leg[1] = cpg_walk_data[1] 
-            signal_leg[2] = -cpg_walk_data[1]
-            signal_leg[3] = 1
-            signal_leg[4] = 1
-        elif motion == "left":
-            signal_leg[0] = cpg_walk_data[0]
-            signal_leg[1] = cpg_walk_data[1] 
-            signal_leg[2] = -cpg_walk_data[1]
-            signal_leg[3] = 0.5
-            signal_leg[4] = 1
-        elif motion == "right":
-            signal_leg[0] = cpg_walk_data[0]
-            signal_leg[1] = cpg_walk_data[1] 
-            signal_leg[2] = -cpg_walk_data[1]
-            signal_leg[3] = 1
-            signal_leg[4] = 0.5
-        elif motion == "stop":
-            if count_change > 0:
-                count_change -= 0.005
-                if motion_before == "forward":
-                    signal_leg[0] = cpg_walk_data[0] * count_change
-                    signal_leg[1] = cpg_walk_data[1] * count_change
-                    signal_leg[2] = -cpg_walk_data[1]* count_change
-                    signal_leg[3] = 1
-                    signal_leg[4] = 1
-                elif motion_before == "backward":
-                    signal_leg[0] = -cpg_walk_data[0]* count_change
-                    signal_leg[1] = cpg_walk_data[1] * count_change
-                    signal_leg[2] = -cpg_walk_data[1]* count_change
-                    signal_leg[3] = 1
-                    signal_leg[4] = 1
-                elif motion_before == "left":
-                    signal_leg[0] = cpg_walk_data[0]* count_change
-                    signal_leg[1] = cpg_walk_data[1] * count_change
-                    signal_leg[2] = -cpg_walk_data[1]* count_change
-                    signal_leg[3] = 0.5
-                    signal_leg[4] = 1
-                elif motion_before == "right":
-                    signal_leg[0] = cpg_walk_data[0]* count_change
-                    signal_leg[1] = cpg_walk_data[1] * count_change
-                    signal_leg[2] = -cpg_walk_data[1]* count_change
-                    signal_leg[3] = 1
-                    signal_leg[4] = 0.5
-        if motion != "stop":
-            motion_before = motion
+    if motion == "set":
+        count_change = 0
+        sigma = 0.03
+        dynamixel_positon = mapping.map([0,0,0,1,1]) 
+        cpg_walk = CPG()
+        cpg_walk.set_frequency(sigma * np.pi)
+    elif motion == "forward":
+        signal_leg[0] = cpg_walk_data[0]
+        signal_leg[1] = cpg_walk_data[1] 
+        signal_leg[2] = -cpg_walk_data[1]
+        signal_leg[3] = 1
+        signal_leg[4] = 1
+    elif motion == "backward":
+        signal_leg[0] = -cpg_walk_data[0]
+        signal_leg[1] = cpg_walk_data[1] 
+        signal_leg[2] = -cpg_walk_data[1]
+        signal_leg[3] = 1
+        signal_leg[4] = 1
+    elif motion == "left":
+        signal_leg[0] = cpg_walk_data[0]
+        signal_leg[1] = cpg_walk_data[1] 
+        signal_leg[2] = -cpg_walk_data[1]
+        signal_leg[3] = 0.5
+        signal_leg[4] = 1
+    elif motion == "right":
+        signal_leg[0] = cpg_walk_data[0]
+        signal_leg[1] = cpg_walk_data[1] 
+        signal_leg[2] = -cpg_walk_data[1]
+        signal_leg[3] = 1
+        signal_leg[4] = 0.5
+    elif motion == "stop":
+        if count_change > 0:
+            count_change -= 0.005
+            if motion_before == "forward":
+                signal_leg[0] = cpg_walk_data[0] * count_change
+                signal_leg[1] = cpg_walk_data[1] * count_change
+                signal_leg[2] = -cpg_walk_data[1]* count_change
+                signal_leg[3] = 1
+                signal_leg[4] = 1
+            elif motion_before == "backward":
+                signal_leg[0] = -cpg_walk_data[0]* count_change
+                signal_leg[1] = cpg_walk_data[1] * count_change
+                signal_leg[2] = -cpg_walk_data[1]* count_change
+                signal_leg[3] = 1
+                signal_leg[4] = 1
+            elif motion_before == "left":
+                signal_leg[0] = cpg_walk_data[0]* count_change
+                signal_leg[1] = cpg_walk_data[1] * count_change
+                signal_leg[2] = -cpg_walk_data[1]* count_change
+                signal_leg[3] = 0.5
+                signal_leg[4] = 1
+            elif motion_before == "right":
+                signal_leg[0] = cpg_walk_data[0]* count_change
+                signal_leg[1] = cpg_walk_data[1] * count_change
+                signal_leg[2] = -cpg_walk_data[1]* count_change
+                signal_leg[3] = 1
+                signal_leg[4] = 0.5
+    if motion != "stop":
+        motion_before = motion
 
-        if speed == "+sigma":
-            sigma += 0.0001
-            if sigma >= 0.06: sigma = 0.06
-            cpg_walk.set_frequency(sigma * np.pi)
-        elif speed == "-sigma":
-            sigma -= 0.0001
-            if sigma <= 0.01: sigma = 0.01
-            cpg_walk.set_frequency(sigma * np.pi)
+    if speed == "+sigma":
+        sigma += 0.0001
+        if sigma >= 0.06: sigma = 0.06
+        cpg_walk.set_frequency(sigma * np.pi)
+    elif speed == "-sigma":
+        sigma -= 0.0001
+        if sigma <= 0.01: sigma = 0.01
+        cpg_walk.set_frequency(sigma * np.pi)
 
-        if motion == "set":
-            arduino_control = [0,0]
-            alpha = set_alpha
-            shif_cpg_breathe = set_shif_cpg_breathe
-            time_t0 = time.perf_counter()
-            cpg_breathe = CPG()
-            cpg_breathe.set_frequency()
-        elif motion == "stop":
-            alpha -= rate_alpha
-            if alpha <= min_alpha: alpha = min_alpha
-            shif_cpg_breathe -= rate_cpg_breathe
-            if shif_cpg_breathe <= min_shif_cpg_breathe: shif_cpg_breathe = min_shif_cpg_breathe
-            cpg_breathe.set_frequency(alpha * np.pi)
-        else:
-            alpha += rate_alpha
-            if alpha >= max_alpha: alpha = max_alpha
-            shif_cpg_breathe += rate_cpg_breathe
-            if shif_cpg_breathe >= max_shif_cpg_breathe: shif_cpg_breathe = max_shif_cpg_breathe
-            cpg_breathe.set_frequency(alpha * np.pi)
+    if motion == "set":
+        arduino_control = [0,0]
+        alpha = set_alpha
+        shif_cpg_breathe = set_shif_cpg_breathe
+        time_t0 = time.perf_counter()
+        cpg_breathe = CPG()
+        cpg_breathe.set_frequency()
+    elif motion == "stop":
+        alpha -= rate_alpha
+        if alpha <= min_alpha: alpha = min_alpha
+        shif_cpg_breathe -= rate_cpg_breathe
+        if shif_cpg_breathe <= min_shif_cpg_breathe: shif_cpg_breathe = min_shif_cpg_breathe
+        cpg_breathe.set_frequency(alpha * np.pi)
+    else:
+        alpha += rate_alpha
+        if alpha >= max_alpha: alpha = max_alpha
+        shif_cpg_breathe += rate_cpg_breathe
+        if shif_cpg_breathe >= max_shif_cpg_breathe: shif_cpg_breathe = max_shif_cpg_breathe
+        cpg_breathe.set_frequency(alpha * np.pi)
 
 
-        if pump == True:
-            arduino_control = [1,1]
-            
-        if motion != "set":
-            
-            cpg_breathe_data_0 = np.array(cpg_breathe.update())[0] + shif_cpg_breathe
-            cpg_breathe_data_1 = np.array(cpg_breathe.update())[1] + shif_cpg_breathe
+    if pump == True:
+        arduino_control = [1,1]
+        
+    if motion != "set":
+        
+        cpg_breathe_data_0 = np.array(cpg_breathe.update())[0] + shif_cpg_breathe
+        cpg_breathe_data_1 = np.array(cpg_breathe.update())[1] + shif_cpg_breathe
 
-            if breathe_state_0 == True and cpg_breathe_data_0 >= 0:
-                MOTOR1_DATA = 0
-                breathe_state_0 = False
-            elif breathe_state_0 == False and cpg_breathe_data_0 < 0:
-                MOTOR1_DATA = 1
-                breathe_state_0 = True
+        if breathe_state_0 == True and cpg_breathe_data_0 >= 0:
+            MOTOR1_DATA = 0
+            breathe_state_0 = False
+        elif breathe_state_0 == False and cpg_breathe_data_0 < 0:
+            MOTOR1_DATA = 1
+            breathe_state_0 = True
 
-            if breathe_state_1 == True and cpg_breathe_data_1 >= 0:
-                MOTOR2_DATA = 0
-                breathe_state_1 = False
-            elif breathe_state_1 == False and cpg_breathe_data_1 < 0:
-                MOTOR2_DATA = 1
-                breathe_state_1 = True
-       
-            arduino_control = [MOTOR1_DATA,MOTOR2_DATA]   
+        if breathe_state_1 == True and cpg_breathe_data_1 >= 0:
+            MOTOR2_DATA = 0
+            breathe_state_1 = False
+        elif breathe_state_1 == False and cpg_breathe_data_1 < 0:
+            MOTOR2_DATA = 1
+            breathe_state_1 = True
+   
+        arduino_control = [MOTOR1_DATA,MOTOR2_DATA]   
         
 
 
