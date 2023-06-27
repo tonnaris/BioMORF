@@ -9,13 +9,6 @@ class Motormapping_angle():
         self.output_cjoint = [2500,3000]
         self.output_fjoint = [1500,2000]
 
-        # self.output_tjoint = [1800,2300]
-        # self.output_cjoint = [2000,2500]
-        # self.output_fjoint = [1000,1500]
-
-        # slope = (output_end - output_start) / (input_end - input_start)
-        # output = output_start + slope * (input - input_start)
-
         self.slope_tjoint = 1.0 * (self.output_tjoint[1] - self.output_tjoint[0]) / (self.input[1] - self.input[0])
         self.slope_cjoint = 1.0 * (self.output_cjoint[1] - self.output_cjoint[0]) / (self.input[1] - self.input[0])
         self.slope_fjoint = 1.0 * (self.output_fjoint[1] - self.output_fjoint[0]) / (self.input[1] - self.input[0])
